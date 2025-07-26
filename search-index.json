@@ -1,0 +1,77 @@
+[
+  {
+    "id": "overview",
+    "title": "Overview",
+    "body": "USQLite is a powerful Unreal Engine plugin designed to handle runtime data persistence with SQLite databases , without requiring the developer to write SQL queries or deal with Blueprint complexity. It uses reflection to automatically generate SQL commands from object properties and supports complex features like multithreaded operations, data versioning, object reference serialization, and custom load screens."
+  },
+  {
+    "id": "key-features",
+    "title": "Key Features",
+    "body": "✅ No SQL Required – Auto-generate SQL from UObjects, Actors, or Components. 🚀 Multithreaded Execution – Run save/load operations in background threads. 🔄 Blueprint-Friendly – Expose all functionality to Blueprints. 💾 Data Versioning – Store historical versions of objects for compatibility. 🔗 Reference Saving – Supports saving and restoring UObject, Actor, and Component references. 🎞 Custom Load Screens – Built-in splash screen, blur, or movie support during loading. 📈 Progress Feedback – Real-time progress bar system and events. 🔄 Runtime & Editor Integration – Create/edit SQLite database assets directly in Unreal Editor. 🎮 Game-Ready – Ensures thread-safe operations while gameplay continues."
+  },
+  {
+    "id": "class-overview",
+    "title": "Class Overview",
+    "body": "USQLite_Settings A configuration class to control default behavior of the SQLite system. UPROPERTY(EditDefaultsOnly, config)\nbool DeepLogs; Enables verbose logging of SQL operations. USQLite The core class managing database operations and schema generation. Properties DB_VERSION , DB_VERSIONS : Table versioning system. DB_MODE : Runtime threading mode (sync/threaded). DB_FILE : Absolute path to the SQLite database. DB_SelectCondition , DB_DeleteCondition : Optional WHERE clauses. DBS_QUEUE , DBL_QUEUE : SQL command queues for save/load. DB_REDIRECTORS : Maps old property names to new ones for backwards compatibility. LoadScreenMode : Enum for selecting the load screen type. Visual customization: SplashImage , ProgressBarTint , FeedbackFont , etc. Blueprint Events EVENT_OnBeginDataSAVE , EVENT_OnFinishDataSAVE EVENT_OnBeginDataLOAD , EVENT_OnFinishDataLOAD These events allow users to bind custom logic during save/load events. Blueprint Functions Command Queue API: void DB_EnqueueSAVE(FS"
+  },
+  {
+    "id": "load-screen-system",
+    "title": "Load Screen System",
+    "body": "Customize user experience during save/load operations. Modes: BackgroundBlur SplashScreen MoviePlayer NoLoadScreen Configuration: BackBlurPower , SplashImage , SplashMovie ProgressBarOnMovie , PauseGameOnLoad FeedbackSAVE , FeedbackLOAD , FeedbackFont"
+  },
+  {
+    "id": "threaded-operations",
+    "title": "Threaded Operations",
+    "body": "Async workers automatically manage background database operations using Unreal’s FNonAbandonableTask : DBS_ExecuteQueue_Task\nDBL_ExecuteQueue_Task\nDBS_ImmediateSave_Task\nDBL_ImmediateLoad_OBJ_Task"
+  },
+  {
+    "id": "example-use-cases",
+    "title": "Example Use Cases",
+    "body": "Save Player Progress : Store player stats, inventory, position, and level state. Versioned Game Saves : Maintain backward compatibility across game versions. Persistent Multiplayer World : Serialize and deserialize the game world without stalling the server. Custom Editor Tools : Create in-editor asset databases that persist metadata or gameplay tuning parameters."
+  },
+  {
+    "id": "saving-and-loading-data",
+    "title": "🔹 Saving and Loading Data",
+    "body": "✅ Blueprint Example Save All Data [Event Begin Play]\n    ↓\n[Call Function: DB_Save]\n    - Context: Self\n    - Mode: SaveAll Load All Data [Event Begin Play]\n    ↓\n[Call Function: DB_Load]\n    - Context: Self ✅ C++ Example Save All Data USQLite* MyDatabase = ...; // Reference to the database asset\nMyDatabase->DB_Save(MyDatabase, ESQLSaveMode::SaveAll); Load All Data MyDatabase->DB_Load(MyDatabase);"
+  },
+  {
+    "id": "saving-an-object-immediately",
+    "title": "🔹 Saving an Object Immediately",
+    "body": "✅ Blueprint [Call Function: DB_OBJ_ImmediateSAVE]\n    - Object: TargetObject ✅ C++ UObject* TargetObject = ...;\nMyDatabase->DB_OBJ_ImmediateSAVE(TargetObject);"
+  },
+  {
+    "id": "saving-loading-actors-components",
+    "title": "🔹 Saving/Loading Actors & Components",
+    "body": "✅ Blueprint: Save Actor [Call Function: DB_ACT_ImmediateSAVE]\n    - Actor: TargetActor ✅ C++ AActor* Actor = ...;\nMyDatabase->DB_ACT_ImmediateSAVE(Actor);"
+  },
+  {
+    "id": "custom-table-versioning",
+    "title": "🔹 Custom Table Versioning",
+    "body": "✅ Blueprint [Call Function: DB_SetVersion]\n    - Table: \"PlayerData_V2\" ✅ C++ bool success = MyDatabase->DB_SetVersion(\"PlayerData_V2\");"
+  },
+  {
+    "id": "custom-sql-generation",
+    "title": "🔹 Custom SQL Generation",
+    "body": "✅ C++ FString SQL_Insert = MyDatabase->DB_GenerateSQL_Object_INSERT(MyObject);\nFString SQL_Update = MyDatabase->DB_GenerateSQL_Object_UPDATE(MyObject);\nFString SQL_Select = MyDatabase->DB_GenerateSQL_Object_SELECT(MyObject);"
+  },
+  {
+    "id": "selecting-updating-columns",
+    "title": "🔹 Selecting & Updating Columns",
+    "body": "✅ Blueprint [Call Function: DB_SELECT_Integer]\n    - RowID: \"Player_001\"\n    - ColumnName: \"Health\" [Call Function: DB_UPDATE_Integer]\n    - RowID: \"Player_001\"\n    - ColumnName: \"Health\"\n    - Value: 75 ✅ C++ int32 CurrentHealth = MyDatabase->DB_SELECT_Integer(\"Player_001\", \"Health\");\n\nESQLResult Result = MyDatabase->DB_UPDATE_Integer(\"Player_001\", \"Health\", 75);"
+  },
+  {
+    "id": "handling-save-load-events",
+    "title": "🔹 Handling Save/Load Events",
+    "body": "✅ Blueprint Events Bind to:\n- On Begin Data Save - On Finish Data Save - On Begin Data Load - On Finish Data Load ✅ C++ Overrides void AMyActor::DB_OnBeginSave_Implementation(USQLite* Database)\n{\n    UE_LOG(LogTemp, Log, TEXT(\"Saving started\"));\n}\n\nvoid AMyActor::DB_OnFinishLoad_Implementation(USQLite* Database, bool Success)\n{\n    if (Success)\n    {\n        UE_LOG(LogTemp, Log, TEXT(\"Loading completed successfully\"));\n    }\n}"
+  },
+  {
+    "id": "using-load-screens",
+    "title": "🔹 Using Load Screens",
+    "body": "✅ Blueprint Settings Set LoadScreenMode to SplashScreen , MoviePlayer , or BackgroundBlur Configure SplashImage , BackBlurPower , FeedbackSAVE , etc. ✅ Runtime Behavior When loading data, the system automatically shows the configured UI and tracks progress via: [Call Function: DB_LaunchLoadScreen]"
+  },
+  {
+    "id": "summary",
+    "title": "Summary",
+    "body": "USQLite is designed to be easy to integrate with both Blueprints and C++ , giving you powerful tools to persist data without dealing with SQL manually. Whether you're saving a simple player inventory or synchronizing thousands of object states across a streamed world, USQLite has you covered."
+  }
+]
