@@ -6,6 +6,15 @@
 
 ---
 
+# [🎬 >> QUICK TUTORIAL #1](https://www.youtube.com/watch?v=902oSGdhSdY)
+# [🎬 >> QUICK TUTORIAL #2](https://www.youtube.com/watch?v=eXiVu5TyPWc)
+
+# [📼 >> DOWNLOAD PROJECT HERE!](https://www.dropbox.com/scl/fi/r8fpl53kfxbwuvlx35vcz/USQLite_2.2.2_UE5.5.zip?rlkey=w2qt5qwjx3yv1h7qwuqymfom3&st=9vta53cv&dl=0)  
+
+<br>
+
+---
+
 ## Key Features
 
 - ✅ **No SQL Required** – Auto-generate SQL from UObjects, Actors, or Components.
