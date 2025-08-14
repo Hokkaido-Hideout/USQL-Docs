@@ -9,7 +9,7 @@
 # [🎬 >> QUICK TUTORIAL #1](https://www.youtube.com/watch?v=902oSGdhSdY)
 # [🎬 >> QUICK TUTORIAL #2](https://www.youtube.com/watch?v=eXiVu5TyPWc)
 
-# [📼 >> DOWNLOAD PROJECT HERE!](https://www.dropbox.com/scl/fi/r8fpl53kfxbwuvlx35vcz/USQLite_2.2.2_UE5.5.zip?rlkey=w2qt5qwjx3yv1h7qwuqymfom3&st=9vta53cv&dl=0)  
+# [📼 >> DOWNLOAD PROJECT HERE!](https://www.dropbox.com/scl/fi/5mwvvtn4lkc2429uz63m1/USQLite_1.0.7_UE4.18.zip?rlkey=4nx3yopj3qtjfoxrrykgsywvz&st=qzvvm1og&dl=0)  
 
 <br>
 
